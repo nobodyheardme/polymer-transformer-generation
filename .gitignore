@@ -1,0 +1,42 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE settings
+.idea/
+.vscode/
+
+# Build and test artifacts
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Model checkpoints and local outputs
+checkpoints/
+outputs/
+*.pt
+*.pth
+*.ckpt
+*.bin
+
+# Large local data artifacts
+datasets/
+runs/
+logs/
+*.log
+*.pkl
+data/*_stats.npz
+
+# Secrets
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
