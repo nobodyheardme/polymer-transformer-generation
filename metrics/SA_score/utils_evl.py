@@ -12,8 +12,8 @@ from rdkit.Chem.AllChem import GetMorganFingerprintAsBitVect as Morgan
 from rdkit.Chem.QED import qed
 from rdkit.Chem.Scaffolds import MurckoScaffold
 from rdkit.Chem import Descriptors
-import sascorer
-import npscorer
+from metrics.NP_score import npscorer
+from metrics.SA_score import sascorer
 from config import MCF_PATH, PAINS_PATH
 from utils import mapper, get_mol
 

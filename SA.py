@@ -3,7 +3,7 @@ import numpy as np
 from rdkit import Chem
 
 from config import OUTPUT_DIR, TRAIN_DATA_PATH
-from utils_evl import get_mol, SA
+from metrics.SA_score.utils_evl import SA, get_mol
 
 
 gen_path = OUTPUT_DIR / "generated_transformer_30000_t08_top10.csv"

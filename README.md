@@ -4,11 +4,13 @@ This repository contains a Transformer-based molecular generation workflow for p
 
 ## Main entry points
 
-- `train.py`: train a model.
+- `train.py`: compatibility wrapper for model training.
 - `generate.py`: generate SMILES from a trained checkpoint.
+- `eval.py`: compatibility wrapper for metrics evaluation.
+- `run.py`: compatibility wrapper for the end-to-end pipeline.
 - `config.py`: central project paths and default locations.
 
-`sample.py` is kept as a compatibility wrapper around `generate.py`.
+Real script implementations live under `scripts/`. `sample.py` is kept as a compatibility wrapper around `generate.py`.
 
 ## Project layout
 
@@ -20,15 +22,22 @@ This repository contains a Transformer-based molecular generation workflow for p
 |-- run.py
 |-- eval.py
 |-- dataset.py
-|-- metrics.py
 |-- script_utils.py
 |-- models_storage.py
 |-- interfaces.py
 |-- utils.py
-|-- utils_evl.py
-|-- sascorer.py
-|-- npscorer.py
 |-- SA.py
+|-- scripts/
+|   |-- train.py
+|   |-- eval.py
+|   `-- run.py
+|-- metrics/
+|   |-- NP_score/
+|   |   `-- npscorer.py
+|   `-- SA_score/
+|       |-- metrics.py
+|       |-- sascorer.py
+|       `-- utils_evl.py
 |-- Transformer/
 |-- data/
 |   |-- PolyInfo_train.csv
@@ -76,5 +85,5 @@ python generate.py transformer --model_load checkpoints/transformer_model.pt --c
 
 ## Notes
 
-- `run.py` remains available as a higher-level pipeline script.
+- `train.py`, `eval.py`, and `run.py` remain available at the repository root as compatibility wrappers.
 - The current environment used for reorganization did not have project dependencies installed, so runtime imports requiring `numpy`, `torch`, `rdkit`, and related packages could not be fully executed during verification.

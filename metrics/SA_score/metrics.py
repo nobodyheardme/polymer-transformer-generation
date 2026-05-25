@@ -8,7 +8,7 @@ from scipy.stats import wasserstein_distance
 from dataset import get_dataset, get_statistics
 from utils import mapper
 from utils import disable_rdkit_log, enable_rdkit_log
-from utils_evl import compute_fragments, average_agg_tanimoto, \
+from metrics.SA_score.utils_evl import compute_fragments, average_agg_tanimoto, \
     compute_scaffolds, fingerprints, \
     get_mol, canonic_smiles, mol_passes_filters, \
     logP, QED, SA, weight
