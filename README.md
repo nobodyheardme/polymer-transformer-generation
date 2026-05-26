@@ -198,7 +198,14 @@ conda install -c conda-forge rdkit
 
 ### 1. Prepare the dataset
 
-Prepare a CSV file containing polymer SMILES strings. The dataset should contain an `SMILES` column, for example:
+Prepare CSV files with an `SMILES` column. The default files are:
+
+```text
+data/PolyInfo_train.csv
+data/PolyInfo_test.csv
+```
+
+Each CSV should look like:
 
 ```text
 SMILES
@@ -208,29 +215,81 @@ SMILES
 
 The default training, evaluation, and utility scripts expect the CSV column name to be `SMILES`.
 
-### 2. Train the model
+### 2. Quick Start on Windows PowerShell
 
-```bash
-python train.py
+Create output folders first:
+
+```powershell
+New-Item -ItemType Directory -Force checkpoints, outputs | Out-Null
 ```
 
-The training script reads the polymer SMILES dataset, builds the vocabulary, encodes the sequences, and trains the Transformer/GPT-style model.
+Train the Transformer model on the default dataset:
 
-### 3. Generate polymer SMILES
-
-```bash
-python run.py
+```powershell
+python train.py transformer `
+  --device cpu `
+  --model_save checkpoints/transformer_model.pt `
+  --config_save checkpoints/transformer_config.pt `
+  --vocab_save checkpoints/transformer_vocab.pt `
+  --log_file checkpoints/transformer_log.txt
 ```
 
-The generation script samples new polymer SMILES strings from the trained model. Sampling parameters such as temperature and top-k can be adjusted to control generation diversity and validity.
+Generate SMILES from the trained model:
 
-### 4. Evaluate generated molecules
-
-```bash
-python eval.py
+```powershell
+python generate.py transformer `
+  --device cpu `
+  --model_load checkpoints/transformer_model.pt `
+  --config_load checkpoints/transformer_config.pt `
+  --vocab_load checkpoints/transformer_vocab.pt `
+  --gen_save outputs/generated.csv `
+  --n_samples 1000
 ```
 
-The evaluation script checks generated molecules and calculates molecular evaluation metrics such as validity, SA score, and NP score.
+Evaluate the generated molecules against the default dataset:
+
+```powershell
+python eval.py `
+  --device cpu `
+  --gen_path outputs/generated.csv `
+  --train_path data/PolyInfo_train.csv `
+  --test_path data/PolyInfo_test.csv
+```
+
+### 3. macOS/Linux Equivalent
+
+```bash
+mkdir -p checkpoints outputs
+```
+
+```bash
+python train.py transformer \
+  --device cpu \
+  --model_save checkpoints/transformer_model.pt \
+  --config_save checkpoints/transformer_config.pt \
+  --vocab_save checkpoints/transformer_vocab.pt \
+  --log_file checkpoints/transformer_log.txt
+```
+
+```bash
+python generate.py transformer \
+  --device cpu \
+  --model_load checkpoints/transformer_model.pt \
+  --config_load checkpoints/transformer_config.pt \
+  --vocab_load checkpoints/transformer_vocab.pt \
+  --gen_save outputs/generated.csv \
+  --n_samples 1000
+```
+
+```bash
+python eval.py \
+  --device cpu \
+  --gen_path outputs/generated.csv \
+  --train_path data/PolyInfo_train.csv \
+  --test_path data/PolyInfo_test.csv
+```
+
+The training command builds the vocabulary from `data/PolyInfo_train.csv`, the generation command writes sampled molecules to `outputs/generated.csv`, and the evaluation command compares those samples with the default train/test CSV files.
 
 ## Sampling Parameters
 
