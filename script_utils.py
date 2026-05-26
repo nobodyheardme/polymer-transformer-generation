@@ -5,6 +5,8 @@ import numpy as np
 import pandas as pd
 import torch
 
+SMILES_COLUMN = 'SMILES'
+
 
 def add_common_arg(parser):
     def torch_device(arg):
@@ -98,7 +100,7 @@ def add_sample_args(parser):
 
 
 def read_smiles_csv(path):
-    return pd.read_csv(path, usecols=['SMILES'])['SMILES'].astype(str).tolist()
+    return pd.read_csv(path, usecols=[SMILES_COLUMN])[SMILES_COLUMN].astype(str).tolist()
 
 def set_seed(seed):
     torch.manual_seed(seed)

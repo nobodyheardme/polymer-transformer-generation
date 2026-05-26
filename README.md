@@ -198,15 +198,15 @@ conda install -c conda-forge rdkit
 
 ### 1. Prepare the dataset
 
-Prepare a CSV file containing polymer SMILES strings. The dataset should contain a column for SMILES strings, for example:
+Prepare a CSV file containing polymer SMILES strings. The dataset should contain an `SMILES` column, for example:
 
 ```text
-smiles
+SMILES
 *CCCCC(=O)NCCCNC(=O)c1ccc(C(=O)N*)cc1
 ...
 ```
 
-The exact input path and column name can be configured in the corresponding configuration or script files.
+The default training, evaluation, and utility scripts expect the CSV column name to be `SMILES`.
 
 ### 2. Train the model
 

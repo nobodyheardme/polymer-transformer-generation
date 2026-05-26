@@ -5,6 +5,7 @@ from config import DATA_DIR, TEST_DATA_PATH, TRAIN_DATA_PATH
 
 
 AVAILABLE_SPLITS = ['train', 'test']
+SMILES_COLUMN = 'SMILES'
 
 
 def get_dataset(split='train'):
@@ -28,7 +29,7 @@ def get_dataset(split='train'):
         'test': TEST_DATA_PATH,
     }
 
-    smiles = pd.read_csv(file_set[split])['Smiles'].values
+    smiles = pd.read_csv(file_set[split])[SMILES_COLUMN].values
     return smiles
 
 
